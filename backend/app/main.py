@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI(
     title="SEO Audit Tool",
@@ -41,3 +42,9 @@ async def analyze_geo(domain: str):
 @app.post("/api/traffic/estimate")
 async def estimate_traffic(url: str):
     return {"url": url, "status": "placeholder - will add real logic"}
+
+# For local testing
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
